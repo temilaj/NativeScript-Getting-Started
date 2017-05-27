@@ -28,6 +28,23 @@ export class GroceryListService {
     .catch(this.handleErrors);
   }
 
+  add(name: string) {
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + Config.token);
+    headers.append("Content-Type", "application/json");
+  
+    return this.http.post(
+      Config.apiUrl + "Groceries",
+      JSON.stringify({ Name: name }),
+      { headers: headers }
+    )
+    .map(res => res.json())
+    .map(data => {
+      return new Grocery(data.Result.Id, name);
+    })
+    .catch(this.handleErrors);
+  }
+
   handleErrors(error: Response) {
     console.log(JSON.stringify(error.json()));
     return Observable.throw(error);
