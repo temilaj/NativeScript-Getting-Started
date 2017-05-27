@@ -30,32 +30,49 @@ export class LoginComponent implements OnInit {
       this.signUp();
     }
   }
+
   toggleDisplay() {
     this.isLoggingIn = !this.isLoggingIn;
     let container = <View>this.container.nativeElement;
     container.animate({
-      backgroundColor: this.isLoggingIn ? new Color("white") : new Color("#322122"),
+      backgroundColor: this.isLoggingIn ? new Color("white") : new Color("#e1e9e9"),
       duration: 500
     });
   }
 
   login() {
-    this.userService.login(this.user)
-      .subscribe(
-        () => this.router.navigate(["/list"]),
-        (error) => alert("Unfortunately we could not find your account.")
-      );
+    if(typeof(this.user.email) == "undefined" || typeof(this.user.password) == "undefined" ||this.user.email.length < 3 || this.user.password.length < 3)
+    {
+      alert("Enter a valid username or password");
+    }
+    else 
+    {
+      this.userService.login(this.user)
+        .subscribe(
+          () => this.router.navigate(["/list"]),
+          (error) => alert("Unfortunately we could not find your account.")
+        );
+    }
   }
+
   signUp() {
-  this.userService.register(this.user)
-    .subscribe(
-      () => {
-        alert("Your account was successfully created.");
-        this.toggleDisplay();
-      },
-      () => alert("Unfortunately we were unable to create your account.")
-    );
+    if(typeof(this.user.email) == "undefined" || typeof(this.user.password) == "undefined" ||this.user.email.length < 3 || this.user.password.length < 3)
+    {
+      alert("Enter a valid username or password");
+    }
+    else
+    {
+      this.userService.register(this.user)
+        .subscribe(
+          () => {
+            alert("Your account was successfully created.");
+            this.toggleDisplay();
+          },
+          () => alert("Unfortunately we were unable to create your account.")
+        );
+    }
   }
+
   ngOnInit(): void {
     this.page.actionBarHidden = true;
     this.page.backgroundImage = "res://bg_login";
