@@ -10,8 +10,13 @@
   </GridLayout>
 
   <ListView row="1" [items]="groceryList" class="small-spacing" [class.visible]="listLoaded">
-    <ng-template let-item="item">
-      <Label [text]="item.name" class="medium-spacing"></Label>
+    <ng-template let-item="item" columns="*, auto" >
+      <GridLayout columns="*, auto">
+        <Label col="0" [text]="item.name" class="medium-spacing"></Label>
+        <StackLayout col="1" class="delete-container" (tap)="delete(item)">
+          <Image src="res://delete"></Image>
+        </StackLayout>
+      </GridLayout>
     </ng-template>
   </ListView>
   <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" row="1" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
