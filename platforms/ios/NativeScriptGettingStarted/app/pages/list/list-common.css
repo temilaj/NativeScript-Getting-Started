@@ -11,9 +11,9 @@
 TextField {
   color: white;
 }
-
 ListView {
   opacity: 0;
+  margin-top: -20;
 }
 .delete-container {
   background-color: #CB1D00;
