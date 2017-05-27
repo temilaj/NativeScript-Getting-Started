@@ -13,3 +13,7 @@ TextField {
 .medium-spacing {
   margin: 10;
 }
+ActionBar {
+  background-color: black;
+  color: white;
+}

@@ -26,6 +26,15 @@ export class LoginComponent implements OnInit {
   }
   submit() {
     // alert(`You’re using: ${this.user.email}  and password ${this.user.password}`);
+    if(typeof(this.user.email) == "undefined" || typeof(this.user.password) == "undefined" ||this.user.email.length < 3 || this.user.password.length < 3)
+    {
+      alert("Enter a valid username or password");
+      return;
+    }
+    if (!this.user.isValidEmail()) {
+      alert("Enter a valid email address.");
+      return;
+    }
     if (this.isLoggingIn) {
       this.login();
     } else {
@@ -43,38 +52,25 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if(typeof(this.user.email) == "undefined" || typeof(this.user.password) == "undefined" ||this.user.email.length < 3 || this.user.password.length < 3)
-    {
-      alert("Enter a valid username or password");
-    }
-    else 
-    {
-      this.userService.login(this.user)
-        .subscribe(
-          () => this.router.navigate(["/list"]),
-          (error) => alert("Unfortunately we could not find your account.")
-        );
-    }
+    
+    this.userService.login(this.user)
+      .subscribe(
+        () => this.router.navigate(["/list"]),
+        (error) => alert("Unfortunately we could not find your account.")
+      );
   }
 
   signUp() {
-    if(typeof(this.user.email) == "undefined" || typeof(this.user.password) == "undefined" ||this.user.email.length < 3 || this.user.password.length < 3)
-    {
-      alert("Enter a valid username or password");
-    }
-    else
-    {
-      this.userService.register(this.user)
-        .subscribe(
-          () => {
-            alert("Your account was successfully created.");
-            this.toggleDisplay();
-          },
-          () => alert("Unfortunately we were unable to create your account.")
-        );
-    }
+    this.userService.register(this.user)
+      .subscribe(
+        () => {
+          alert("Your account was successfully created.");
+          this.toggleDisplay();
+        },
+        () => alert("Unfortunately we were unable to create your account.")
+      );
   }
-
+  
   ngOnInit(): void {
     this.page.actionBarHidden = true;
     this.page.backgroundImage = "res://bg_login";
