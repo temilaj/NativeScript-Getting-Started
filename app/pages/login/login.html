@@ -1,9 +1,9 @@
 <StackLayout #container>
   <Label [text]="isLoggingIn ? 'Welcome Back' : 'Lets get you started'" class="app-title"></Label>
   <Image src="res://logo_login" stretch="none" horizontalAlignment="center"></Image>
-  <TextField hint="Email Address" keyboardType="email"
+  <TextField #email hint="Email Address" keyboardType="email"
     autocorrect="false" autocapitalizationType="none" [(ngModel)]="user.email"></TextField>
-  <TextField hint="Password" secure="true" [(ngModel)]="user.password"></TextField>
+  <TextField #password hint="Password" secure="true" [(ngModel)]="user.password"></TextField>
 
   <!--<Button text="Sign in" class="submit-button" (tap)="submit()"></Button>
   <Button text="Sign up for Groceries"></Button>-->
